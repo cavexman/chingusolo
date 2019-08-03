@@ -1,11 +1,44 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import AppAuthorized from './AppAuthorized';
 import './App.css';
 
+class Action{
+  constructor(state){
+    this.state = state;
+  }
+
+  getState(){
+    return( this.state );
+  }
+}
+
+class PropEditAction extends Action{
+  constructor(state) {
+    super(state);
+  }
+}
+
+class PropInput extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render(){
+    return(
+      <input className="field" value={this.props.initialValue} onChange={e => this.props.doAction(new PropEditAction({ [this.props.propName]:e.target.value}))}/>
+    )
+  }
+}
+
 class App extends Component {
-state = {
-    data: null
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      data: null,
+      login: false
+    }
+  }
+
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
@@ -24,15 +57,27 @@ state = {
     return body;
   };
 
+  doAction(action){
+    console.log(action);
+    if( action instanceof PropEditAction ){
+      this.setState(action.getState());
+    }
+  }
+
   render() {
+    if(this.state.login)
+      return <AppAuthorized {...this.state} />
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+        Welcome to Chingu Solo {this.state.user}
         </header>
-        // Render the newly fetched data inside of this.state.data 
-        <p className="App-intro">{this.state.data}</p>
+
+        
+        <label>User<PropInput propName="user" doAction={e => this.doAction(e)}/></label>
+        <label>Password<PropInput propName="pw" doAction={e => this.doAction(e)}/></label>
+        <button onClick={() => this.setState({login:true})}>log in</button>
       </div>
     );
   }
