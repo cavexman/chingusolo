@@ -19,15 +19,7 @@ class Firebase extends React.Component {
       ui: props.ui
     }
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDVqhivJSBPxw_eOZbGWoF95kuKvP5ex7M",
-      authDomain: "notesolo-cave.firebaseapp.com",
-      databaseURL: "https://notesolo-cave.firebaseio.com",
-      projectId: "notesolo-cave",
-      storageBucket: "notesolo-cave.appspot.com",
-      messagingSenderId: "256441349038",
-      appId: "1:256441349038:web:bde01be578c41a5d"
-    };
+ 
     
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
