@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+
+import Firebase from './Firebase';
 import AppAuthorized from './AppAuthorized';
 import './App.css';
+
 
 class Action{
   constructor(state){
@@ -35,16 +38,17 @@ class App extends Component {
     super(props);
     this.state = {
       data: null,
-      login: false
+      displayName: "logged out",
+      user: false,
     }
   }
 
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
+    // this.callBackendAPI()
+    //   .then(res => this.setState({ data: res.express }))
+    //   .catch(err => console.log(err));
   }
     // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
   callBackendAPI = async () => {
@@ -64,20 +68,32 @@ class App extends Component {
     }
   }
 
-  render() {
-    if(this.state.login)
-      return <AppAuthorized {...this.state} />
+  onAuthStateChanged(user) {
+    if(user){
+      this.setState({user: user, displayName: user.displayName});
+    }else{
+      //logged out
+      this.setState({user: false, displayName: "logged out"});
+    }
+  }
 
-    return (
+  render() {
+    if(this.state.user){
+      return (
+        <div className="App">
+          <header className="App-header">
+          Welcome to Chingu Solo {this.state.displayName}
+          <Firebase user={this.state.user} onAuthStateChanged={user => this.onAuthStateChanged(user)}/>
+          </header>
+          <AppAuthorized {...this.state} />
+        </div>
+      );
+    }else return (
       <div className="App">
         <header className="App-header">
-        Welcome to Chingu Solo {this.state.user}
+        Welcome to Chingu Solo {this.state.displayName}
+        <Firebase user={this.state.user} onAuthStateChanged={user => this.onAuthStateChanged(user)}/>
         </header>
-
-        
-        <label>User<PropInput propName="user" doAction={e => this.doAction(e)}/></label>
-        <label>Password<PropInput propName="pw" doAction={e => this.doAction(e)}/></label>
-        <button onClick={() => this.setState({login:true})}>log in</button>
       </div>
     );
   }

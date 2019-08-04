@@ -31,3 +31,45 @@
     transform: rotate(360deg);
   }
 }
+
+div.posts {
+  list-style: none;
+  display: inline-block;
+  width: 90%;
+
+}
+div.post {
+  display: inline-block;
+  width: 30%;
+  margin: 1%;
+  border: 1px solid grey;
+
+}
+
+.title {
+  font-size: 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid grey;
+  background: lightgray;
+  padding: 8px;
+
+} 
+.body { grid-area: 2 / 1 / 3 / 2; } 
+.footer { 
+  background: lightgray;
+  padding: 8px;
+}
+
+.edit {
+  width: 50%;
+  display: inline-block;
+  text-align: left;
+}
+
+label{
+  text-align: left;
+}
+.field{
+  width: 75%;
+  text-align: left;
+}
