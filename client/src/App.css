@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  
 }
 
 .App-logo {
@@ -35,15 +35,18 @@
 div.posts {
   list-style: none;
   display: inline-block;
-  width: 90%;
-
 }
+
 div.post {
   display: inline-block;
   width: 30%;
   margin: 1%;
   border: 1px solid grey;
+}
 
+.scrollview{
+  overflow-y: scroll;
+  height: 45vh;
 }
 
 .title {
@@ -54,16 +57,39 @@ div.post {
   padding: 8px;
 
 } 
-.body { grid-area: 2 / 1 / 3 / 2; } 
+
+.body { 
+  padding: 0.5em;
+  overflow-y: hidden;
+} 
+
+.body textarea{
+  height: 19rem; 
+  resize: none;
+  width: 100%;
+
+}
+
 .footer { 
   background: lightgray;
-  padding: 8px;
+  width: 100%;
+  position: relative;
 }
 
 .edit {
-  width: 50%;
+  width: 40%;
   display: inline-block;
-  text-align: left;
+  text-align: center;
+  border:none;
+  margin: 0.5em;
+}
+
+.delete{
+  width: 40%;
+  display: inline-block;
+  text-align: center;
+  border:none;
+  margin: 0.5em;
 }
 
 label{
@@ -72,4 +98,58 @@ label{
 .field{
   width: 75%;
   text-align: left;
+}
+
+.add-note-form{
+  text-align: left;
+  
+}
+
+.add-note-form label span{
+  margin-bottom: 15px;
+  border: 1px solid red;
+}
+
+.main-container{
+  margin: 50px;
+}
+
+.main-container h1{
+  text-align: left;
+}
+
+.main-container h1 span{
+  color:grey;
+  font-size: smaller;
+  font-weight: 400;
+}
+
+.submit{
+  background: #007bff;
+  color: white;
+  padding: 1em;
+  border-radius: 8px;
+  margin-top:1em;
+  margin-bottom:1em;
+  border-color: #489df8;
+}
+
+.footnote{
+  font-size: small;
+  color: grey;
+  margin-top:1em;
+  margin-bottom:1em;
+}
+
+.field-label{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-color: grey;
+}
+
+.field{
+  font-size: larger;
+  min-height: 1.5em;
+  border-radius: 5px;
+  border-color: grey;
 }

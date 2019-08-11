@@ -12,41 +12,17 @@ import * as firebaseui from 'firebaseui'
 //********************** Firebase ***************************/
 
 
-class Firebase extends React.Component {
+class Authorization extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      ui: props.ui
+      ui: null
     }
 
- 
-    
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     firebase.auth().onAuthStateChanged(this.props.onAuthStateChanged);
-
-    var uiConfig = {
-      signInSuccessUrl: 'https://notesolo-cave.firebaseapp.com/index.html',
-      signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-        // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-        // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-      ],
-      // tosUrl and privacyPolicyUrl accept either url string or a callback
-      // function.
-      // Terms of service url/callback.
-      tosUrl: '<your-tos-url>',
-      // Privacy policy url/callback.
-      privacyPolicyUrl: function() {
-        window.location.assign('<your-privacy-policy-url>');
-      }
-    };
 
     if(!this.state.ui){
         // Initialize the FirebaseUI Widget using Firebase.
@@ -56,8 +32,32 @@ class Firebase extends React.Component {
     }
   }
 
+  signIn(){
+    if(!this.state.ui){
+      // Initialize the FirebaseUI Widget using Firebase.
+      this.state.ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      this.state.ui.start('#firebaseui-auth-container', uiConfig);
+    }
+  }
+
+  signOut(){
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      this.state.ui.reset();
+      // The start method will wait until the DOM is loaded.
+      // this.state.ui.start('#firebaseui-auth-container', uiConfig);
+      
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
+
   render(){
-    return <div id="firebaseui-auth-container"></div>
+    if(this.props.user){
+      return <button onClick={()=>this.signOut()}>sign out</button>
+    }else
+      return <div id="firebaseui-auth-container"></div>
   }
 }
 
