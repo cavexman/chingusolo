@@ -1,5 +1,6 @@
 # chingusolo
 This project is an attempt to fulfill the tier 3 pre-requisite solo project for Chingu's Voyage 11.
+see live site at https://notesolo-cave.firebaseapp.com/
 
 To build, use npm run build.
 
