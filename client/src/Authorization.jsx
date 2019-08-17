@@ -7,10 +7,20 @@ class Authorization extends React.Component {
   }
 
   render(){
-    if(this.props.user){
-      return <button onClick={()=>this.props.signOut()}>sign out</button>
+    if(this.props.showLogin){
+      return <div>
+              <div className="loginBox" id="firebaseui-auth-container"></div>
+            </div>
+    }else if(this.props.user){
+      return <div>
+              <div className="loginBoxHide" id="firebaseui-auth-container"></div>
+              <button className="signout" onClick={()=>this.props.signOut()}>sign out</button>
+            </div>
     }else
-      return <div id="firebaseui-auth-container"></div>
+      return <div>
+              <div className="loginBoxHide" id="firebaseui-auth-container"></div>
+              <button className="signout" onClick={()=>this.props.startLogin()}>sign in</button>
+            </div>
   }
 }
 

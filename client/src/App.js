@@ -52,13 +52,25 @@ class App extends Component {
       data: null,
       displayName: "logged out",
       user: false,
-      authUI: false
+      authUI: false,
+      showLogin: false
     }
   }
 
 
   componentDidMount() {
-    const firebaseConfig = require('./.config.json');
+//this will get some net nanny to warn me but there's no good way to hide the api key on the client.
+//https://stackoverflow.com/questions/52100690/should-i-hide-firebase-api-keys-into-backend-not-due-to-data-security-but-proje
+    const firebaseConfig = {
+      "apiKey": "AIzaSyD_KHCyN3vCHWzMg10JuvEtqdaLFbbqCGk",
+      "authDomain": "notesolo-cave.firebaseapp.com",
+      "databaseURL": "https://notesolo-cave.firebaseio.com",
+      "projectId": "notesolo-cave",
+      "storageBucket": "notesolo-cave.appspot.com",
+      "messagingSenderId": "256441349038",
+      "appId": "1:256441349038:web:bde01be578c41a5d"
+    };
+    
 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
@@ -75,7 +87,7 @@ class App extends Component {
 
   onAuthStateChanged(user) {
     if(user){
-      this.setState({user: user, displayName: user.displayName});
+      this.setState({user: user, displayName: user.displayName, showLogin: false});
     }else{
       //logged out
       this.setState({user: false, displayName: "logged out"});
@@ -93,6 +105,12 @@ class App extends Component {
       // An error happened.
     });
   }
+
+  startLogin(){
+    this.setState({showLogin: true});
+    this.state.authUI.start('#firebaseui-auth-container', uiConfig);
+  }
+
   render() {
     if(this.state.user){
       return (
@@ -101,6 +119,8 @@ class App extends Component {
           Welcome to Chingu Solo {this.state.displayName}
           <Authorization user={this.state.user}
             signOut={() => this.signOut()}
+            startLogin={() => this.startLogin()}
+            showLogin={this.state.showLogin}
           />
           </header>
           <AppAuthorized {...this.state} />
@@ -113,6 +133,8 @@ class App extends Component {
         <Authorization
           user={this.state.user} 
           signOut={() => this.signOut()}
+          startLogin={() => this.startLogin()}
+          showLogin={this.state.showLogin}
         />
         </header>
       </div>

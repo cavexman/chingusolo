@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm run build",
+    "deploy": "cd client && npm run deploy"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,5 @@
   },
   "homepage": "https://github.com/cavexman/chingusolo#readme",
   "dependencies": {
-    "express": "^4.17.1"
   }
 }

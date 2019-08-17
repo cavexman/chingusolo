@@ -153,3 +153,18 @@ label{
   border-radius: 5px;
   border-color: grey;
 }
+
+.signout{
+  background: none;
+  color: white;
+  border: none;
+  text-decoration-line: underline;
+}
+
+.loginBox{
+  display: block;
+}
+
+.loginBoxHide{
+  display: none;
+}
