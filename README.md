@@ -2,10 +2,10 @@
 This project is an attempt to fulfill the tier 3 pre-requisite solo project for Chingu's Voyage 11.
 See live site at https://notesolo-cave.firebaseapp.com/
 
-To build, first clone the repository to your local machine. 
-Next, use the command: npm install
-Next use: npm run build
-Finally type npm start
+To build, first clone the repository to your local machine.  
+Next, use the command: npm install  
+Next use: npm run build  
+Finally type npm start  
 
 To run the app you must have a firebase account and include your credentials in App.js
 
