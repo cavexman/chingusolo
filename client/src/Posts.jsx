@@ -107,38 +107,35 @@ class Posts extends Component {
 
   delete_doc(id){
     var db = firebase.firestore();
-    console.log("deleting ", id);
+    
 
     db.collection("notes").doc(id).delete().then(function() {
-      console.log("Document successfully deleted!");
+      
     })
     .catch(function(error) {
-      console.error("Error removing document: ", error);
+      
     });
   }
 
   save_doc(id){
-    console.log("state", this.state);
+    
     if(this.state.title && this.state.body){
       var db = firebase.firestore();
-      console.log("saving ", id, this.state.title, this.state.body);
       db.collection("notes").doc(id).update({title: this.state.title, body:this.state.body})
       .then(() => {
-        console.log("Document successfully saved!");
+        this.setState({editItem: ""});
       })
       .catch(function(error) {
-        console.error("Error saving document: ", error);
+        
       });
     }else
-      console.log("nothing to save");
-
     this.setState({editItem: ""});
   }
 
   edit_doc(id){
     // setup initial values
     const doc = this.state.data.find(d => d.id === id);
-    console.log("got doc",doc);
+    
     this.setState({
       editItem: id,
       title: doc.title,
@@ -159,7 +156,7 @@ class Posts extends Component {
           </div>
           <div className="footer" key={`${p.id}footer`}>
             <EditSaveButton editItem={this.state.editItem} store={store} id={p.id}/>
-            <button className="delete" onClick={() => store.delete_doc(`${p.id}`)}>delete</button>
+            <button className="delete" onClick={() => store.delete_doc(`${p.id}`)}>Delete</button>
           </div> 
         </div>
       )

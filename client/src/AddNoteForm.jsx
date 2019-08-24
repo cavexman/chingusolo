@@ -63,24 +63,22 @@ class AddNoteForm extends Component {
     addNote = async () => {
       var db = firebase.firestore();
       var user = firebase.auth().currentUser;
-      console.log(user.uid);
-
+      
       // Add a second document with a generated ID.
       const newNote = { author:  user.uid,
         body: this.state.body,
         datetime: firebase.firestore.Timestamp.now(),
         title: this.state.title
       };
-      console.log("adding ", newNote);
 
       const docRef = await db.collection("notes").add(newNote);
 
-      console.log("Document written with ID: ", docRef.id);
-      // this.props.dirty();
+      
+      this.props.dirty();
     }
 
     doAction(action){
-        console.log(action);
+        
         if( action instanceof PropEditAction ){
           this.setState(action.getState());
         }
